@@ -21,6 +21,21 @@ def valencia_refa(request):
 
     return render(request, 'usuarios/valencia_refa.html')
 
+def sisma_pv(request):
+    if request.method=="POST":
+        name = request.POST.get('username')
+        passwd = request.POST.get('password')       
+        user = authenticate(request, username=name, password=passwd)
+        if user is not None:
+            login(request, user) 
+            #id_user_activo = request.user.id
+            categorias=Categoria.objects.filter(esta_activa=True, propietario_id=request.user.id)
+            context={'categorias':categorias}
+            return render(request, 'catalogo/collections.html', context)
+
+    return render(request, 'usuarios/sisma_pv.html')
+
+
 def despedida(request):
     return render(request, 'usuarios/despedida.html')
 
