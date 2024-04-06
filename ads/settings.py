@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'ads.wsgi.application'
 
 print(os.getenv('DATABASE_URL'))
 DATABASES = {
-    'default':  dj_database_url.config(default=os.getenv('DATABASE_URL'))
+    'default':  dj_database_url.config(default='postgresql://postgres:BElYEuadxQZCFklmglOdOJdUKXElwONT@viaduct.proxy.rlwy.net:46221/railway'))
     }
 
 
