@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
+from dotenv import load_dotenv
 import os
+
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -78,15 +82,9 @@ WSGI_APPLICATION = 'ads.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ads',
-        'USER': 'postgres',
-        'PASSWORD': 'fOR4pOSTGRES',
-        'HOST': 'localhost',
-        'PORT': '5432',
+    'default':  dj_database_url.config(default=os.getenv('DATABASE_URL'))
     }
-}
+
 
 
 # Password validation
@@ -143,3 +141,5 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+CSRF_TRUSTED_ORIGINS = ['web-production-643f.up.railway.app']
