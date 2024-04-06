@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'ads.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-print(os.getenv('DATABASE_URL'))
+#print(os.getenv('DATABASE_URL'))
 DATABASES = {
-    'default':  dj_database_url.config(default='postgresql://postgres:BElYEuadxQZCFklmglOdOJdUKXElwONT@viaduct.proxy.rlwy.net:46221/railway'))
+    'default':  dj_database_url.config(default='postgresql://postgres:BElYEuadxQZCFklmglOdOJdUKXElwONT@viaduct.proxy.rlwy.net:46221/railway')
     }
 
 
