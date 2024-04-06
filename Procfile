@@ -1,2 +1,2 @@
-web: gunicorn ads.wsgi
+web: python manage.py collectstatic && gunicorn ads.wsgi
 
