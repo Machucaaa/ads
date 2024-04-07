@@ -1,9 +1,10 @@
 from django.db import models
 from usuarios.models import Propietario
 from shortuuidfield import ShortUUIDField
-
 import datetime
 import os
+
+from django.conf import settings
 
 # Create your models here.
 
