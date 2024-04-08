@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate,login
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+
 # Create your views here.
 from catalogo.models import Categoria, Producto
 
@@ -68,3 +69,5 @@ def searchproduct(request):
 
     return redirect( request.META.get('HTTP_REFERER'))
 
+def handling_404(request, exception):
+    return render(request,'usuarios/404.html', {})
