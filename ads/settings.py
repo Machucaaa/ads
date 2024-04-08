@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['web-production-643f.up.railway.app','127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'catalogo',
     'usuarios',
     'django.contrib.admin',
@@ -43,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'whitenoise.runserver_nostatic',
+
 ]
 
 MIDDLEWARE = [
@@ -140,8 +141,9 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 CSRF_TRUSTED_ORIGINS = ['https://web-production-643f.up.railway.app']
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
