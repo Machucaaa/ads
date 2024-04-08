@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 
+import django
 # Create your views here.
 from catalogo.models import Categoria, Producto
 
@@ -69,5 +70,5 @@ def searchproduct(request):
 
     return redirect( request.META.get('HTTP_REFERER'))
 
-def handling_404(request, exception):
-    return render(request,'usuarios/404.html', {})
+def handling_404(request):
+    return django.views.defaults.page_not_found(request, None)
