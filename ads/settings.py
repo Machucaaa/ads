@@ -133,12 +133,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/images/'
 
-MEDIA_ROOT = BASE_DIR / 'static'
+#MEDIA_ROOT = BASE_DIR / 'static'
+MEDIA_ROOT = os.environ["RAILWAY_VOLUME_MOUNT_PATH"]
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
-
+ 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
