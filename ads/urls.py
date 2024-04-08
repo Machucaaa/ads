@@ -20,11 +20,12 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-
+from usuarios.views import handling_404
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('catalogo.urls')), 
-    path('', include('usuarios.urls')),     
+    path('', include('usuarios.urls')),  
+    path('404/', handling_404 ),       
 ]
 
 if settings.DEBUG:
