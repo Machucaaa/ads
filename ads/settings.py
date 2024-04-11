@@ -135,7 +135,7 @@ MEDIA_URL = '/images/'
 MEDIA_ROOT = os.environ["RAILWAY_VOLUME_MOUNT_PATH"]
 
 
-CSRF_TRUSTED_ORIGINS = ['https://web-production-643f.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://mxbajio.up.railway.app']
 
 STATIC_URL = '/static/'
 
