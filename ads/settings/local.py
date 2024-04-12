@@ -24,12 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7-o9q1k_q^_ve%nql_l3gw9avbx)zt*3%m$7l$g)8!-i2$uu%f'
+#SECRET_KEY = 'django-insecure-7-o9q1k_q^_ve%nql_l3gw9avbx)zt*3%m$7l$g)8!-i2$uu%f'
+SECRET_KEY=os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['mxbajio.up.railway.app','127.0.0.1']
+#DEBUG = True
+DEBUG=os.environ.get('DEBUG')
+ALLOWED_HOSTS = ['mxbajio.up.railway.app','127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -131,11 +132,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/images/'
 
-#MEDIA_ROOT = BASE_DIR / 'static'
-MEDIA_ROOT = os.environ["RAILWAY_VOLUME_MOUNT_PATH"]
+MEDIA_ROOT = BASE_DIR / 'static'
+#MEDIA_ROOT = os.environ["RAILWAY_VOLUME_MOUNT_PATH"]
 
 
-CSRF_TRUSTED_ORIGINS = ['https://mxbajio.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['http://localhost','http://127.0.0.1','https://mxbajio.up.railway.app']
 
 STATIC_URL = '/static/'
 
