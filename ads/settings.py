@@ -130,6 +130,9 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
+
 MEDIA_URL = 'images/'
 #MEDIA_URL = os.path.join(BASE_DIR, 'images')
 #MEDIA_ROOT = BASE_DIR / 'static'
@@ -138,7 +141,5 @@ MEDIA_ROOT = os.environ["RAILWAY_VOLUME_MOUNT_PATH"]
 
 CSRF_TRUSTED_ORIGINS = ['https://mxbajio.up.railway.app']
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'static'
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
