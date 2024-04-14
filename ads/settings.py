@@ -136,10 +136,13 @@ STATIC_ROOT = BASE_DIR / 'static'
 MEDIA_URL = '/media/'
 #MEDIA_URL = os.path.join(BASE_DIR, 'images')
 #MEDIA_ROOT = BASE_DIR / 'static'
-MEDIA_ROOT = os.environ["RAILWAY_VOLUME_MOUNT_PATH"]
+if DEBUG:
+    MEDIA_ROOT = BASE_DIR / 'media'   
+else:
+    MEDIA_ROOT = os.environ["RAILWAY_VOLUME_MOUNT_PATH"]
 
 
-CSRF_TRUSTED_ORIGINS = ['https://mxbajio.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://mxbajio.up.railway.app','http://127.0.0.1']
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
