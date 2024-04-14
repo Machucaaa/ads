@@ -28,8 +28,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY=os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG=False
+DEBUG = True
+#DEBUG=False
 ALLOWED_HOSTS = ['mxbajio.up.railway.app','127.0.0.1']
 
 
@@ -137,7 +137,8 @@ MEDIA_URL = '/app/media/'
 #MEDIA_URL = os.path.join(BASE_DIR, 'images')
 #MEDIA_ROOT = BASE_DIR / 'static'
 if DEBUG:
-    MEDIA_ROOT = BASE_DIR / 'media'   
+    #MEDIA_ROOT = BASE_DIR / 'media'  
+    MEDIA_ROOT = os.environ["RAILWAY_VOLUME_MOUNT_PATH"] 
 else:
     MEDIA_ROOT = os.environ["RAILWAY_VOLUME_MOUNT_PATH"]
 
