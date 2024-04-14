@@ -27,9 +27,11 @@
                                             <img src="{{ item.product_image.url }}" alt="Producto img" class="w-100"/>
                                         </div>
                                         <h4 class="text-center">{{ item.producto }}</h4>
-                                        <label>Esta activo?</label>
-                                        <label><input type="checkbox" value="{{ item.esta_activo}}" readonly ></label>
-                                
+                                        <div class="form-group">
+                                            <label for=""> Esta activo?: </label>
+                                            {{ form.esta_activo}}
+                                        </div>
+                                                                
                                     </div>
                                 </a>
                             </div>
