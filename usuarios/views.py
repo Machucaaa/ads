@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate,login
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout as auth_logout
 
 import django
 # Create your views here.
@@ -41,6 +42,7 @@ def sisma_pv(request):
 
 
 def despedida(request):
+    auth_logout(request)
     return render(request, 'usuarios/despedida.html')
 
 def productlistAjax(request):
