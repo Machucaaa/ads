@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-import dj_database_url
 from dotenv import load_dotenv 
 import os
 
@@ -28,10 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY=os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG=False
-ALLOWED_HOSTS = ['mxbajio.up.railway.app','127.0.0.1']
 
+DEBUG=True
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -83,13 +81,16 @@ WSGI_APPLICATION = 'ads.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-#print(os.getenv('DATABASE_URL'))
 DATABASES = {
-    'default':  dj_database_url.config(default='postgresql://postgres:BElYEuadxQZCFklmglOdOJdUKXElwONT@viaduct.proxy.rlwy.net:46221/railway')
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "mxbajio",
+        "USER": "amachuca",
+        "PASSWORD": "For4Mysql$",
+        "HOST": "127.0.0.1",
+        "PORT": "3306",        
+        }
     }
-
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -133,17 +134,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static'
 
-MEDIA_URL = '/app/media/'
-#MEDIA_URL = os.path.join(BASE_DIR, 'images')
-#MEDIA_ROOT = BASE_DIR / 'static'
-if DEBUG:
-    #MEDIA_ROOT = BASE_DIR / 'media'  
-    MEDIA_ROOT = os.environ["RAILWAY_VOLUME_MOUNT_PATH"] 
-else:
-    MEDIA_ROOT = os.environ["RAILWAY_VOLUME_MOUNT_PATH"]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
-
-CSRF_TRUSTED_ORIGINS = ['https://mxbajio.up.railway.app','http://127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1']
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 

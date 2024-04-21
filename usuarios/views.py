@@ -29,7 +29,7 @@ def sisma_pv(request):
     if request.method=="POST":
         name = request.POST.get('username')
         #passwd = request.POST.get('password')       
-        passwd = 'for4Puntos$'
+        passwd = 'For4Amsis'
         user = authenticate(request, username=name, password=passwd)
         if user is not None:
             login(request, user) 
