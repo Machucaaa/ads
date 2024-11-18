@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Propietario
+from .models import Propietario, Cliente
 from .forms import CustomUserCreationForm
 from django.contrib.auth.admin import UserAdmin
 
@@ -19,9 +19,11 @@ class CustomUserAdmin(UserAdmin):
                     'plan',
                     'fin_de_plan',
                     'esta_activo',
+                    'whatsapp',
                 )
             }
         )
     )
 
 admin.site.register(Propietario, CustomUserAdmin)
+admin.site.register(Cliente)

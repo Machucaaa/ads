@@ -1,0 +1,42 @@
+{% extends "catalogo/layouts/main.html" %}    
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="">
+                <div class="card mt-3 shadow">
+                    <div class="card-body">
+
+                        <form action="{% url 'logincliente' %}", method="POST">
+                            {% csrf_token %} 
+                            <h2> Ingreso </h2>
+                            <div class="form-group">
+                                <label for=""> WhatsApp: </label>
+                                {{ form.whatsapp }}
+                                {% if form.errors.whatsapp %}
+                                    <label class="text-danger"> {{ form.errors.whatsapp}}</label>
+                                {% endif%}
+                            </div>
+                        
+                            <div class="form-group">
+                                <label for=""> Password: </label> 
+                                {{ form.password }}
+                                {% if form.errors.password %}
+                                    <label class="text-danger"> {{ form.errors.password}}</label>
+                                {% endif%}
+                            </div>
+                            <button type="submit" class="btn float-start shadow btn-success px-4"> Ingresar </button>
+                            
+                        </form>
+                        <a href="{% url "regcliente" %}"> 
+                            <button class="btn float-end shadow btn-success px-4"> Registrarme (no tengo cuenta)  </button>    
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

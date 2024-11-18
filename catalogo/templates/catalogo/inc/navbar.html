@@ -8,30 +8,30 @@
         <ul class="navbar-nav ms-auto">
 
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href={% url "home" %}>Inicio</a>
+            <a class="nav-link active" aria-current="page" style="color:#00f" href={% url "home" %}>Inicio</a>
           </li>
           <li class="nav-item">
  
-            <a class="nav-link" href= {% url "collections" %}>Categorias</a>
+            <a class="nav-link" style="color:#00f" href= {% url "collections" %}>Categorias</a>
 
             </li>    
           
           {% if request.user.is_authenticated %}
             <li class="nav-item">
-               <a class="nav-link" href="#">  {{request.user}} Salir</a>
+               <a class="nav-link" style="color:#00f" href="#">  {{request.user}} Salir</a>
             </li>          
           {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="#">Ingresar</a>
+              <a class="nav-link" style="color:#00f" href="#">Ingresar</a>
             </li>          
             <li class="nav-item">
-              <a class="nav-link" href="#">Registro</a>
+              <a class="nav-link" style="color:#00f" href="#">Registro</a>
           </li>
           
           {% endif %}
 
           <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">EnaDisabled</a>
+            <a class="nav-link disabled" style="color:#00f" aria-disabled="true">EnaDisabled</a>
           </li>
         </ul>
       </div>

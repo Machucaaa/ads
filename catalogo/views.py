@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from .models import Categoria, Producto
-
+from usuarios.models import Cliente
 from .forms import FormCategoria, FormProducto
 # Create your views here.
 
@@ -14,9 +14,11 @@ def home(request):
 
 def collections(request):
     categorias=Categoria.objects.filter(esta_activa=True, propietario_id=request.user.id)
-
+    device = request.COOKIES["device"]
+    cliente = Cliente.objects.filter(device=device)
     #categorias=Categoria.objects.filter(esta_activa=True)
-    context={'categorias':categorias}
+    context={'categorias':categorias,
+             'cliente': cliente}
     return render(request, 'catalogo/collections.html', context)
 
 def collectionview(request, slug_de_cat):
@@ -25,7 +27,13 @@ def collectionview(request, slug_de_cat):
         productos=Producto.objects.filter(categoria__slug=slug_de_cat, esta_activo = True)
         #print( productos)
         categoria_activa=Categoria.objects.filter(slug=slug_de_cat).first()
-        context={ 'productos':productos, 'categoria_activa':categoria_activa }
+        device = request.COOKIES["device"]
+        cliente = Cliente.objects.filter(device=device)
+        #categorias=Categoria.objects.filter(esta_activa=True)
+        context={'productos':productos, 'categoria_activa':categoria_activa,
+             'cliente': cliente}
+
+        #context={ 'productos':productos, 'categoria_activa':categoria_activa }
         return render(request, "catalogo/productos/index.html", context)
     else:
         messages.warning(request, "No hay tal categoria")
@@ -44,6 +52,7 @@ def editUnaCategoria(request, slug_de_cat):
         form = FormCategoria(request.POST, request.FILES, instance=cat2edit)
         if form.is_valid():
             form.save()
+            messages.error(request, 'Actualizada!')
             return redirect('categorias_a_editar') 
 
     return render(request, "catalogo/edit_una_categoria.html", context)
@@ -74,27 +83,36 @@ def producto2edit(request, prod_slug):
         form = FormProducto(request.POST, request.FILES, instance=prod2edit)
         if form.is_valid():
             form.save()
+            messages.error(request, 'Actualizado!')
             return redirect('cats4prods_a_editar') 
 
     return render(request, 'catalogo/editar_producto.html', context)
 
 
 def productview(request, cate_slug, prod_slug):
-    if(Categoria.objects.filter(slug=cate_slug, esta_activa=True)):
-        if(Producto.objects.filter(slug=prod_slug, esta_activo=True)):
-            products=Producto.objects.filter(slug=prod_slug, esta_activo=True).first()
-            context={ 'products':products }
-        else:
-            messages.error(request, 'No hay tal producto')
-            return redirect( "collections")
+    if request.POST:
+        print('hola')
     else:
-        messages.warning(request, "No hay tal categoria")
-        return redirect('collections')
-    return render(request, 'catalogo/productos/detalle_producto.html', context)
-
+        if(Categoria.objects.filter(slug=cate_slug, esta_activa=True)):
+            if(Producto.objects.filter(slug=prod_slug, esta_activo=True)):
+                products=Producto.objects.filter(slug=prod_slug, esta_activo=True).first()
+                device = request.COOKIES["device"]
+                cliente = Cliente.objects.filter(device=device)
+                
+                context={ 'products':products, 'cliente': cliente }
+                #print(products.Id_producto)
+            else:
+                messages.error(request, 'No hay tal producto')
+                return redirect( "collections")
+        else:
+            messages.warning(request, "No hay tal categoria")
+            return redirect('collections')
+        return render(request, 'catalogo/productos/detalle_producto.html', context)
+     
 
 def altascategoria(request):  
-    if request.user.is_authenticated:
+    if request.user.is_authenticated  and request.user.esta_activo :
+
         if request.POST:
             form = FormCategoria(request.POST, request.FILES)
             #print(request.POST)
@@ -111,10 +129,11 @@ def altascategoria(request):
                     messages.warning(request, nom_categoria + ' guardada!')
         return render(request, 'catalogo/productos/altascategoria2.html', { 'form': FormCategoria })
     else:
+        messages.warning(request, 'Tu cuenta no está activada!')
         return redirect('/para_editar_catalogo')
 
 def altasproductos(request): 
-    if request.user.is_authenticated: 
+    if request.user.is_authenticated and  request.user.esta_activo:
         id_user_activo = request.user.id
         form = FormProducto()
         form.fields['categoria'].queryset = Categoria.objects.filter(propietario_id=request.user.id)
@@ -141,4 +160,6 @@ def altasproductos(request):
             #return redirect(home)
         return render(request, 'catalogo/productos/altasproductos.html', { 'form': form } )
     else:
+        messages.warning(request, 'Tu cuenta no está activada!')
         return redirect('/para_editar_catalogo')
+

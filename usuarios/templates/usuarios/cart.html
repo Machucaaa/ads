@@ -1,0 +1,142 @@
+{% extends "catalogo/layouts/main.html" %}  
+{% load static %}
+
+{% block content %}
+
+<div class="py-3 bg-primary">
+    <div class="container">
+        <a class="text-white" href= {% url "home" %}>Home / </a> 
+        <a class="text-white" href= {% url "cart" %}>Cart / </a>
+    </div>
+</div> 
+
+<div class="text" id="whatsappa" hidden>
+    {{ cliente.whatsappa }}
+</div>
+
+<div clas="py5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-shadow">
+                    <div class="card-body cartdata">
+                        {% if cart %}
+                            {% for item in cart %}
+                                <div class="row product_data">
+                                    <div class="col-md-1 my-auto cantyarticulo hidden">
+                                        <input type="hidden" value="{{ item.product_qty }} - {{ item.id_producto.producto }}" />
+                                    </div>
+
+                                    <div class="col-md-2 my-auto">
+                                        <img src="{{ item.id_producto.product_image.url }}" height="70px" alt="image" />
+                                    </div>
+
+                                    <div class="col-md-3 my-auto articulo">
+                                        {{ item.id_producto.producto }}
+                                    </div>
+
+                                    <div class="col-md-2 my-auto">
+                                        <h6>${{ item.id_producto.precio | floatformat:2 }}</h6> 
+                                    </div>
+                                    <div class="col-md-2 my-auto">
+                                        {% csrf_token %}
+                                        <input type="hidden" value="{{ item.id_producto_id }}" class="prod_id" />
+                                        <label for="Quantity">Cantidad</label>
+                                        <div class="input-group text-center mb-3" style="with:130px;">
+                                            <input type="text" name="quantity" class="form-control qty-input text-center" value="{{ item.product_qty }}" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 my-auto">
+                                        <button type="button" class="btn btn-danger delete-cart-item" ><i class="fa fa-trash"></i>Remover </button>
+                                    </div>
+
+                                </div>                                   
+                            {% endfor %}
+                            <div class="col-md-9">
+                                <br/>
+                                <a id="link_whats" href="https://api.whatsapp.com/send?phone={{user.whatsapp}}&text=Te envio un test">
+                                    <button type="button" class="btn btn-success me-3 float-start" id="BotonDeWhats" >Pedir...<i class="fa fa-whatsapp"></i></button>
+                                </a>
+                            </div>
+
+                        {% else %}
+                            <h2> Tu carrito esta vacio </h2>
+                        {% endif %}                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+
+<script type="text/javascript"> 
+
+    //location.reload();                
+    const boton = document.getElementById("BotonDeWhats");
+    boton.addEventListener("click", cambiarmsgCart);        
+
+    function cambiarmsgCart() {
+
+        const eventoF5 = new KeyboardEvent("keydown", { key: "F5" });
+        document.dispatchEvent(eventoF5);
+
+        var cants = null;
+        cants = document.querySelectorAll("input");
+        //const elementos = document.querySelectorAll(".articulo");
+
+        // Crea una lista de objetos a partir de los elementos
+        const listaDeObjetos = Array.from(cants).map((elemento) => 
+             elemento.value );
+        console.log(listaDeObjetos); 
+        // Ahora tienes una lista de objetos que representan los elementos con la clase "mi-clase"
+        const listaDeArts = [];
+
+        for (let i = 0; i < listaDeObjetos.length; i++) {
+            if (i % 4 == 0){
+                listaDeArts.push( listaDeObjetos[i] )
+            }
+        }        
+
+        var msg = ''
+        for (let i = 0; i < listaDeArts.length; i++) {
+            
+            msg = msg + listaDeArts[i] + "%0A" 
+            
+        }        
+        
+        // Cambia el enlace al hacer clic en el botón
+        var pri = "https://api.whatsapp.com/send?phone={{cliente.whatsappa}}&text=";
+
+        var newhref = pri + msg;
+            document.getElementById("link_whats").href = newhref;
+
+
+
+                var device = getCookie('device');
+                var token = $('input[name=csrfmiddlewaretoken]').val();
+                $.ajax({
+                    method: "GET",
+                    url: "/addToOrden",
+                    data: {
+                        'device': device, 
+                        csrfmiddlewaretoken: token,
+                    },
+                    success: function(response){
+                        console.log(response);
+                        alertify.success(response.status); 
+                    }
+                });
+
+                    
+
+
+    } 
+
+</script>
+
+
+{% endblock scripts %}

@@ -23,8 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-7-o9q1k_q^_ve%nql_l3gw9avbx)zt*3%m$7l$g)8!-i2$uu%f'
-SECRET_KEY=os.environ.get('SECRET_KEY')
+SECRET_KEY = 'django-insecure-7-o9q1k_q^_ve%nql_l3gw9avbx)zt*3%m$7l$g)8!-i2$uu%f'
+#SECRET_KEY=os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
@@ -55,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'ads.urls'
@@ -114,13 +115,21 @@ AUTH_USER_MODEL = 'usuarios.Propietario'
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'es-mx'
+################
+LANGUAGE_CODE = 'es-mx'  # Establece el idioma predeterminado (en este caso, español)
+_ = lambda s: s  # Define una función de traducción
+LANGUAGES = (
+    ('es-mx', _('Español')),
+    ('en', _('Inglés')),
+)
+USE_I18N = True  # Habilita la internacionalización
+USE_L10N = True  # Habilita la localización (formato de fechas, números, etc.)
+USE_TZ = True  # Habilita la zona horaria
+LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)  # Ruta a la carpeta "locale"
+
+###############
 
 TIME_ZONE = 'America/Mexico_City'
-
-USE_I18N = True
-
-USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)

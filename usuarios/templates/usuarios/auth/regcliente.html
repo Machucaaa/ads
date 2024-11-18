@@ -1,0 +1,53 @@
+{% extends "catalogo/layouts/main.html" %}    
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="">
+                <div class="card mt-3 shadow">
+                    <div class="card-body">
+
+    <form action="{% url 'regcliente' %}", method="POST">
+        {% csrf_token %} 
+        <h2> Registro </h2>
+        <div class="form-group">
+            <label for=""> Nombre: </label>
+            {{ form.nombre }} 
+            {% if form.errors.nombre %}
+                <label class="text-danger"> {{ form.errors.nombre}}</label>
+            {% endif%}
+        </div>
+        <div class="form-group">
+            <label for=""> WhatsApp: </label>
+            {{ form.whatsapp }}
+            {% if form.errors.whatsapp %}
+                <label class="text-danger"> {{ form.errors.whatsapp}}</label>
+            {% endif%}
+        </div>
+        <div class="form-group">
+            <label for=""> Te atiende:(WhatsApp) </label>
+            {{ form.whatsappa }}
+            {% if form.errors.whatsappa %}
+                <label class="text-danger"> {{ form.errors.whatsappa}}</label>
+            {% endif%}
+        </div> 
+
+        <div class="form-group">
+            <label for=""> Password: </label> 
+            {{ form.password }}
+            {% if form.errors.password %}
+                <label class="text-danger"> {{ form.errors.password}}</label>
+            {% endif%}
+        </div>
+        
+        <button class="btn float-end shadow btn-success px-4"> Ya estoy registrado </button>        
+        <button type="submit" class="btn float-start shadow btn-success px-4"> Registrar </button>
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock content %}

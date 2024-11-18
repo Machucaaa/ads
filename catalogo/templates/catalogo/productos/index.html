@@ -23,7 +23,9 @@
                                 <a href={% url 'productview' item.categoria.slug item.slug %}>
                                     <div class="card-body custom-card">
                                         <div class="category-image">
+                                            {% if item.product_image %}
                                             <img src="{{ item.product_image.url }}" alt="Producto img" class="w-100"/>
+                                            {% endif %}
                                         </div>
                                         <h4 class="text-center">{{ item.producto }}</h4>
                                         <span class="float-start">  $<s>{{ item.precio_original | floatformat:2 }}</s> </span>

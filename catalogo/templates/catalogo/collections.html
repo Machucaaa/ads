@@ -15,7 +15,9 @@
                                 <a href="{% url 'collectionview' item.slug %}">
                                     <div class="card-body custom-card">
                                         <div class="category-image">
+                                            {% if item.image %}
                                             <img src="{{ item.image.url }}" alt="{{ item.image.url }}" class="w-100"/>
+                                            {% endif %}
                                         </div>
                                         <h4 class="text-center">{{ item.nombre_categoria }}</h4>
                                     </div>

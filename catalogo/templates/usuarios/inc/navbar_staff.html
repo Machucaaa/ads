@@ -20,28 +20,28 @@
         <ul class="navbar-nav ms-auto">
 
           <li class="nav-item">
-            <a class="nav-link" href= {% url "categorias_a_editar" %}>Editar Categoria</a>
+            <a class="nav-link" style="color:#00f" href= {% url "categorias_a_editar" %}>Editar Categoria</a>
           </li>    
 
           <li class="nav-item">
-            <a class="nav-link" href= {% url "altascategoria" %}>Nueva Categoria</a>
+            <a class="nav-link" style="color:#00f" href= {% url "altascategoria" %}>Nueva Categoria</a>
           </li>    
 
           <li class="nav-item">
-            <a class="nav-link" href= {% url "cats4prods_a_editar" %}>Editar Producto</a>
+            <a class="nav-link" style="color:#00f" href= {% url "cats4prods_a_editar" %}>Editar Producto</a>
           </li>    
 
           <li class="nav-item">
-              <a class="nav-link" href="{% url "altasproductos" %}">Nuevo Producto</a>
+              <a class="nav-link" style="color:#00f" href="{% url "altasproductos" %}">Nuevo Producto</a>
             </li>
             
           {% if request.user.is_authenticated %}
             <li class="nav-item">
-               <a class="nav-link" href= {% url "logout" %}>  {{request.user}} Salir</a>
+               <a class="nav-link" style="color:#00f" href= {% url "logout" %}>  {{request.user}}-Salir</a>
             </li>          
           {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="#">Ingresar</a>
+              <a class="nav-link" style="color:#00f" href="#">Ingresar</a>
             </li>          
           
           {% endif %}

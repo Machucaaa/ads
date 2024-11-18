@@ -14,6 +14,6 @@ urlpatterns = [
     path('edit_categoria/<str:slug_de_cat>/', views.editUnaCategoria, name='edit_categoria'),      
     path('cats_prods_a_editar', views.selCat4prods2edit, name='cats4prods_a_editar'),  
     path('cat_de_prods4edit/<str:slug_de_cat>/', views.cat_de_prods4edit, name='sel_cat_de_prods_a_editar'),  
-    path('producto_a_editar/<str:prod_slug>', views.producto2edit, name='producto2edit'),    
+    path('producto_a_editar/<str:prod_slug>', views.producto2edit, name='producto2edit'),  
 
 ]

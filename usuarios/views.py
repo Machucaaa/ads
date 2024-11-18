@@ -7,7 +7,7 @@ from django.contrib.auth import logout as auth_logout
 import django
 # Create your views here.
 from catalogo.models import Categoria, Producto
-
+from usuarios.models import Propietario
 from django.http import JsonResponse
 
 def valencia_refa(request):
@@ -28,15 +28,20 @@ def valencia_refa(request):
 def sisma_pv(request):
     if request.method=="POST":
         name = request.POST.get('username')
-        #passwd = request.POST.get('password')       
+        #passwd = request.POST.get('password')        
         passwd = 'For4Amsis'
         user = authenticate(request, username=name, password=passwd)
         if user is not None:
             login(request, user) 
-            #id_user_activo = request.user.id
+            usuario = Propietario.objects.filter(id=request.user.id).first()
+            #print(usuario) 
+            el_user_esta_activo = usuario.esta_activo            
             categorias=Categoria.objects.filter(esta_activa=True, propietario_id=request.user.id)
-            context={'categorias':categorias}
-            return render(request, 'catalogo/collections.html', context)
+            context={'categorias':categorias, 'usuario':usuario }
+            if el_user_esta_activo:
+                return render(request, 'catalogo/collections.html', context)
+            else:
+                return render(request,'usuarios/404.html')
 
     return render(request, 'usuarios/sisma_pv.html')
 

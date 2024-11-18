@@ -32,7 +32,9 @@
 
         <div class="form-group">
             <label for=""> imagen: </label>
+            
             {{ form.image }}
+            <label for="id_image" class="btn btn-danger">Subir archivo</label>            
             {% if form.errors.image %}
                 <label class="text-danger"> {{ form.errors.image}}</label>
             {% endif%}

@@ -1,31 +1,49 @@
+{% load static %}
+<!-- Image and text -->
+<nav class="navbar navbar-light bg-light">
+  {{ user.first_name}}
+  <a class="navbar-brand" href="https://api.whatsapp.com/send?phone=514421740244&text=Te envio un test">
+    <img src="{% static 'images/whatsapp.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+    {{ user.whatsapp}}
+  </a>
+</nav> 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
+    <!--  
       <a class="navbar-brand" href="#">Navbar</a>
+    --> 
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
+      </button> 
+      
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            {% if cliente %}
+            <a class="nav-link active" id="link_carrito" aria-current="page" href={% url "cart" %}>carrito<i class="fa fa-shopping-cart"></i></a>
+            {% endif %}
+          </li>
 
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href={% url "home" %}>Inicio</a>
+            <a class="nav-link active" aria-current="page" style="color:#00f" href={% url "home" %}>Inicio</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item"> 
  
-            <a class="nav-link" href= {% url "collections" %}>Categorias</a>
+            <a class="nav-link" style="color:#00f" href= {% url "collections" %}>Categorias</a>
 
             </li>    
           
           {% if request.user.is_authenticated %}
             <li class="nav-item">
-               <a class="nav-link" href={% url "despedida" %}> Salir</a>
+               <a class="nav-link" style="color:#00f" href={% url "despedida" %}> Salir</a>
             </li>          
           {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="#">Ingresar</a>
+              <a class="nav-link" style="color:#00f" href="#">Ingresar</a>
             </li>          
             <li class="nav-item">
-              <a class="nav-link" href="#">Registro</a>
+              <a class="nav-link" style="color:#00f" href="#">Registro</a>
           </li>
           
           {% endif %}

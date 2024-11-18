@@ -32,12 +32,14 @@
 
         <div class="form-group">
             <label for=""> imagen: </label>
+            
             {{ form.image }}
             {% if form.errors.image %}
                 <label class="text-danger"> {{ form.errors.image}}</label>
             {% endif%}
 
         </div>
+        <p> (Suba fotos de 400x400 máximo) </p>
         <button type="submit" class="btn float-end shadow btn-success px-4"> Registrar </button>
     </form>
 

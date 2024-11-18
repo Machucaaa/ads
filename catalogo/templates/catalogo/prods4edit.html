@@ -24,7 +24,9 @@
                                 <a href={% url 'producto2edit' item.slug %}>
                                     <div class="card-body custom-card">
                                         <div class="category-image">
+                                            {% if item.product_image %}
                                             <img src="{{ item.product_image.url }}" alt="Producto img" class="w-100"/>
+                                            {% endif %}
                                         </div>
                                         <h4 class="text-center">{{ item.producto }}</h4>
                                         {% if item.esta_activo %}

@@ -1,5 +1,5 @@
 from django.db import models
-from usuarios.models import Propietario
+from usuarios.models import Propietario, Cliente
 from shortuuidfield import ShortUUIDField
 import datetime
 import os
@@ -31,6 +31,10 @@ class Categoria(models.Model):
 class Producto(models.Model):
     Id_producto = models.AutoField(primary_key=True)
     producto = models.CharField(max_length=100, blank=False, null=False)
+    #titulo = models.CharField(max_length=100, blank=False, null=False)
+    autor = models.CharField(max_length=100, blank=False, null=False)
+    editorial = models.CharField(max_length=100, blank=False, null=False)
+    pais = models.CharField(max_length=50, blank=False, null=False)
     descripcion = models.TextField(max_length=500, blank=True, null=True)
     precio_original = models.FloatField(default=0.00, null=True)
     precio = models.FloatField(default=0.00)
@@ -46,3 +50,28 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.producto+" "+self.propietario.username
+
+class Orden(models.Model):
+    id = models.AutoField(primary_key=True)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    status = models.SmallIntegerField(default=0) 
+    created_at = models.DateTimeField(auto_now_add=True) 
+    surtio = models.CharField(max_length=50, null=True, blank=True)  
+
+    def __str__(self):
+        return self.cliente.nombre
+
+
+class Cart(models.Model):
+    # cambiar por producto 
+    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    product_qty = models.FloatField(default=1.0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    orden = models.ForeignKey(Orden, null=True, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        if self.orden is None:
+            return self.cliente.nombre
+        else:
+            return "Orden: " + str(self.orden.id) + "-" + self.cliente.nombre
